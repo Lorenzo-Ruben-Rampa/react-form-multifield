@@ -84,7 +84,7 @@ function App() {
         id: articles.length ? articles[articles.length - 1].id + 1 : 1
       };
       setArticles((prevArticles) => [...prevArticles, articleWithId]);
-      setNewArticle({ titolo: '' });
+      setNewArticle({ titolo: '', autore: '', contenuto: '', categoria: '' });
     } else {
       alert('Per favore, compila tutti i campi.');
     }
