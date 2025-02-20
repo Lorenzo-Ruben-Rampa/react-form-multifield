@@ -91,6 +91,13 @@ h2 {
   width: 100%;
 }
 
+.status {
+  color: lime;
+  width: 100%;
+  background-color: yellow;
+  font-weight: bolder;
+}
+
 .category {
   font-size: 18px;
   text-align: center;

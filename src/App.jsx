@@ -84,7 +84,7 @@ function App() {
         id: articles.length ? articles[articles.length - 1].id + 1 : 1
       };
       setArticles((prevArticles) => [...prevArticles, articleWithId]);
-      setNewArticle({ titolo: '', autore: '', contenuto: '', categoria: '' });
+      setNewArticle({ titolo: '', autore: '', contenuto: '', categoria: '', available: false });
     } else {
       alert('Per favore, compila tutti i campi.');
     }
@@ -92,9 +92,13 @@ function App() {
 
   //Definisco la funzione per l'onChange
   function handleInputChange(event) {
-    setNewArticle((prevArticle) => ({
-      ...prevArticle,
-      [event.target.name]: event.target.value,
+    //Aggiungo la checkbox nella logica InputChange
+    const value =
+      event.target.type === "checkbox" ?
+        event.target.checked : event.target.value;
+    setNewArticle((newArticle) => ({
+      ...newArticle,
+      [event.target.name]: value,
     }));
   }
 
@@ -108,13 +112,14 @@ function App() {
     <>
       <div className="container">
         <ul>
-          {articles.map((article, id) => (
+          {articles.map((article) => (
             <li
               key={article.id}>
               <h2>{article.titolo}</h2>
               <p className="corsive">Scritto da: {article.autore}</p>
               <p>{article.contenuto}</p>
               <p className="category">{article.categoria.toUpperCase()}</p>
+              {article.available && <p className="status">Pubblicato</p>}
               <button onClick={() => removeArticle(article.id)}>Cancella</button>
             </li>
           ))}
@@ -159,6 +164,15 @@ function App() {
               value={newArticle.categoria}
               onChange={handleInputChange}
               placeholder="Inserisci la categoria"
+            />
+          </label>
+          <label htmlFor="available">Pubblicato
+            <input
+              name="available"
+              checked={newArticle.available}
+              onChange={handleInputChange}
+              id="available"
+              type="checkbox"
             />
           </label>
           <span><input className="submit-bt" type="submit" value="Aggiungi Articolo" /></span>
